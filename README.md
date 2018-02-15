@@ -24,9 +24,30 @@ The file which includes the layout logic and a good start point to follow how I 
 ```
 atomic-design/src/assets/css/sass/organisms/_article.scss
 ```
+## Action
 
+Please take a quick look at:
+```
+atomic-design/src/assets/css/sass/config/_buttons.scss
+```
+And how I use them in:
+```
+atomic-design/src/assets/css/sass/molecules/_content-footer.scss
+```
+To understand my DRY approach.
 
-
+And please also see this configuration map:
+```
+atomic-design/src/assets/css/sass/molecules/_simple-form.scss
+```
+And how I use it in
+```
+atomic-design/src/assets/css/sass/organisms/_article.scss:77
+```
+Derived from this reusable SCSS plugin which I prepared for making forms:
+```
+atomic-design/src/assets/css/sass/addon/modules/simple-form/_simple-form.scss
+```
 
 ## Build Setup
 
