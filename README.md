@@ -1,6 +1,6 @@
 # Atomic Design using SCSS and VueJS
 
-This is a very simple form page composed from reusable components.
+This is a simple form page composed from reusable components.
 
 You can find the SASS sources in the path:
 > atomic-design/src/assets/css/sass/
