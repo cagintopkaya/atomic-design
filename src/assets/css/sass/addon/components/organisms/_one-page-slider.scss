@@ -1,0 +1,19 @@
+@mixin onePageSlider() {
+  height: 100vh;
+  overflow: hidden;
+  .slick-track {
+    > * {
+      height: 100vh;
+      > * {
+        height: 100%;
+      }
+    }
+  }
+  > button {
+    @include main-slider-buttons($direction: vertical);
+    @include slider-button();
+    &.slick-disabled {
+      display: none !important;
+    }
+  }
+}

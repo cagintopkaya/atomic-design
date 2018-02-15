@@ -1,0 +1,3 @@
+@mixin simple-form-label($conf) {
+  @include node(map-deep-get($conf, label));
+}

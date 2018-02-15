@@ -1,0 +1,100 @@
+@mixin list-item() {
+  margin-top: 25px;
+  > li {
+    margin-top: 20px;
+    &:first-child {
+      margin-top: 0;
+    }
+    > div {
+      border: 1px solid #cbcbcb;
+      @include border-radius(3px);
+      padding: 10px;
+      @include box-sizing(border-box);
+      background: #fff;
+      > * {
+        i {
+          margin-right: 15px;
+        }
+        &:first-child {
+          margin-top: 0;
+          margin-bottom: 15px;
+          font-weight: $font-regular;
+        }
+      }
+      dl {
+        dt {
+          font-size: 12px;
+          color: $left-pane-title-color;
+          margin-bottom: 10px;
+          margin-top: 20px;
+          &:first-child {
+            margin-top: 0;
+          }
+        }
+        dd {
+          font-size: 14px;
+          color: $primary-heading-color;
+
+        }
+      }
+      &.active {
+        background: $left-pane-active-color;
+        > * {
+          &:first-child {
+            color: $left-pane-active-heading-color;
+            i {
+              color: $left-pane-active-icon-color;
+            }
+          }
+          dt {
+            color: $left-pane-active-title-color;
+          }
+          dd {
+            color: $left-pane-active-heading-color;
+          }
+        }
+      }
+    }
+    > dl {
+      border: 1px solid #cbcbcb;
+      padding: 20px 10px;
+      background: #fff;
+      @include border-radius(3px);
+      cursor: pointer;
+      &:first-child {
+        margin-top: -10px;
+        margin-bottom: 15px;
+      }
+      dt {
+        font-size: 15px;
+        color: $primary-heading-color;
+        margin-bottom: 10px;
+      }
+      dd {
+        @include form-message();
+      }
+      &.active {
+        background: $left-pane-active-color;
+        > * {
+          color: #fff;
+        }
+      }
+    }
+  }
+  input {
+    @include node((style: $simple-form-input));
+    margin-top: 5px;
+    height: 30px;
+    font-size: 13px;
+    display: block;
+    width: 100%;
+  }
+  footer {
+    margin-top: 5px;
+    @include clearfix;
+    a {
+      @include button($button-types, primary, small);
+      @include pull-right;
+    }
+  }
+}

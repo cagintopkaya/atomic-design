@@ -1,0 +1,22 @@
+$form-message: (
+  style: (
+    base: (
+      font-size: 12px,
+      color: $message-color
+    ),
+    warning: (
+      style: (
+        base: (
+          font-size: 14px,
+          color: $primary-heading-color !important,
+          font-style: italic
+        )
+      )
+    )
+  )
+);
+
+@mixin form-message() {
+  @include node($form-message);
+}
+

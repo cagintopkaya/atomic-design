@@ -1,0 +1,15 @@
+[accordion] {
+  > * {
+    &:last-child {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      @include transition(.9s all linear);
+      &.active {
+        max-height: 400px;
+        opacity: 1;
+        @include transition(.9s all linear);
+      }
+    }
+  }
+}

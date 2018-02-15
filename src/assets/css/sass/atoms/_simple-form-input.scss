@@ -1,0 +1,20 @@
+$simple-form-input: (
+  base: (
+    border: 1px solid $input-border-color,
+    height: 45px,
+    border-radius: 4px,
+    box-sizing: border-box,
+    background: #fff,
+    padding: 0 10px,
+    font-size: 16px,
+    font-weight: $font-light,
+    position: relative,
+    color: $primary-heading-color,
+  ),
+  focus: (
+    border-color: darken($input-border-color, 20%)
+  ),
+  responsive: (
+
+  )
+);

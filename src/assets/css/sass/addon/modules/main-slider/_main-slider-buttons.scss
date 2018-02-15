@@ -1,0 +1,54 @@
+@mixin main-slider-buttons($direction: horizontal) {
+  outline: 0;
+  cursor: pointer;
+  color: transparent !important;
+  z-index: 4;
+  border: 0;
+  margin: 0;
+  background: transparent;
+  &:before {
+    @include align((
+            alignment: absolute
+    ));
+    color: #000;
+  }
+  @if $direction == horizontal {
+    @include align();
+    &:first-of-type {
+      left: 0;
+      @include icon((
+              name: arrow_left
+      ));
+    }
+    &:nth-of-type(2) {
+      right: 0;
+      @include icon((
+              name: arrow_right
+      ));
+    }
+  } @else {
+    @include align((
+            alignment: horizontal
+    ));
+    position: fixed !important;
+    z-index: 99999;
+    &:before {
+      font-size: 20px !important;
+    }
+    &:first-of-type {
+      top: 2%;
+      @include icon((
+              name: arrow_up
+      ));
+    }
+    &:nth-of-type(2) {
+      bottom: 2%;
+      @include icon((
+              name: arrow_down
+      ));
+      @include max-width($mobile-width){
+        bottom:3vh;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+@mixin dialog-box-text($conf) {
+  @include inline-block;
+  @include node(map-deep-get($conf, text));
+  @if map-has-key(map-deep-get($conf, text, style, base), color)  {
+
+  }
+  @else {
+    $diff: color-diff(map-deep-get($conf, cons, colors, background-color), map-deep-get($conf, cons, colors, text-color));
+    $c: apply-diff(map-deep-get($conf, style, base, background-color), $diff);
+    color: $c;
+  }
+  a {
+    @if map-has-key(map-deep-get($conf, text, style, base), color)  {
+      //TODO @çağın: p içerisindeki a ya müdahale edilemiyor. link öğesi eder diye düşündüm ancak etmiyor
+
+    }
+    @else {
+      $diff: color-diff(map-deep-get($conf, cons, colors, background-color), map-deep-get($conf, cons, colors, link-color));
+      $c: apply-diff(map-deep-get($conf, style, base, background-color), $diff);
+      color: $c;
+    }
+  }
+}

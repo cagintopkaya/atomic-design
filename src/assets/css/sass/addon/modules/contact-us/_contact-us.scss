@@ -1,0 +1,97 @@
+@import "contact-us-info";
+@import "contact-us-action";
+
+@mixin contactUs($conf: ()) {
+  $conf: map-extend((
+          style: (
+                  wrapper: $wrapper-width,
+                  base: ()
+          ),
+          info: (
+                  style: (
+                          base: (
+                                  width: 28.17%,
+                                  float: left
+                          )
+                  ),
+                  header: (
+                          style: (
+                                  base: (
+                                          font-size: 36px,
+                                          color: #58595B,
+                                          margin: 0 0 25px 0
+                                  )
+                          )
+                  ),
+                  text: (
+                          style: (
+                                  base: (
+                                          color: #4A4A4A,
+                                          font-size: 17px,
+                                          margin-bottom: 40px
+                                  )
+                          )
+                  ),
+                  social: (
+                          style: (
+                                  base: (
+                                          margin-bottom: 40px
+                                  )
+                          ),
+                          horizontal: true,
+                          margin: 59px,
+                          text: (
+                                  style: (
+                                          base: (
+                                                  color: #4A4A4A
+                                          )
+                                  )
+                          )
+                  ),
+                  title: (
+                          style: (
+                                  base: (
+                                          font-size: 10px,
+                                          color: #9FA3A7
+                                  )
+                          )
+                  ),
+                  definition: (
+                          style: (
+                                  base: (
+                                          color: #4A4A4A,
+                                          font-size: 17px,
+                                          margin-bottom: 60px
+                                  )
+                          )
+                  )
+          ),
+          action: (
+                  style: (
+                          base: (
+                                  width: 48.94%,
+                                  float: right
+                          )
+                  ),
+                  header: (),
+                  text: (),
+                  icon: ()
+          )
+  ), $conf, true);
+  > main {
+    @include clearfix();
+    @include node($conf);
+  }
+  contact-info {
+    @include contact-us-info($conf);
+  }
+  contact-action {
+    @include contact-us-action($conf);
+  }
+  contact-form {
+    /* TODO: contact-us-form() */
+    legend {
+      @include node(map-deep-get($conf, action, header));
+    }
+  }
+}

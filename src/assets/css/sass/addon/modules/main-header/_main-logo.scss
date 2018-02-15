@@ -1,0 +1,9 @@
+@mixin main-logo() {
+  a {
+    display: block;
+  }
+
+  h1 {
+    @include visuallyhidden();
+  }
+}

@@ -1,0 +1,128 @@
+@mixin checkbox-radio($conf: ()) {
+  $conf: map-extend((
+          style: (
+                  base: (
+                          vertical-align: middle,
+                          white-space: nowrap,
+                          border: 1px solid #cbcbcb,
+                          background: #000,
+                          width: 30px,
+                          height: 30px,
+                          margin-right: 5px,
+                          text-align: center,
+                          position: relative
+                  )
+          ),
+          checkbox: (
+                  style: (
+                          base: ()
+                  )
+          ),
+          checkbox-checked: (
+                  style: ()
+          ),
+          radio: (
+                  style: (
+                          base: (
+                                  border-radius: 50%
+                          )
+                  )
+          ),
+          radio-checked: (
+                  style: (
+                          base: ()
+                  )
+          ),
+          label: (
+                  style: (
+                          base: (
+                                  vertical-align: middle,
+                                  cursor: pointer,
+                                  position: relative,
+                                  overflow: hidden
+                          )
+                  ),
+                  link: (
+                          style: ()
+                  )
+          )
+  ), $conf, true);
+  display: block;
+  label {
+    @include node(map-deep-get($conf, label));
+    @include flexbox();
+    @include align-items(center);
+    max-width: 100%;
+    > i {
+      display: block;
+      @include pull-left;
+    }
+    span {
+      @include node(map-deep-get($conf, label));
+      @include flex(1);
+      @include max-width($mobile-width) {
+        white-space: normal;
+      }
+      a {
+        @include node(map-deep-get($conf, label));
+        @include node(map-deep-get($conf, label, link));
+      }
+    }
+    input {
+      &[type="checkbox"] {
+        position: absolute;
+        left: -9999px;
+        @include visuallyhidden;
+        + i {
+          @include node($conf);
+          &:before {
+            content: "";
+            @include box-sizing(border-box);
+            @include align((
+                    alignment: absolute
+            ));
+          }
+        }
+      }
+      &[type="radio"] {
+        position: absolute;
+        left: -9999px;
+        @include visuallyhidden;
+        + i {
+          @include node($conf);
+          &:before {
+            content: "";
+            @include box-sizing(border-box);
+            @include align((
+                    alignment: absolute
+            ));
+          }
+        }
+      }
+      &[type="checkbox"] {
+        &:not(:checked) {
+          + i {
+            @include node(map-deep-get($conf, checkbox));
+          }
+        }
+        &:checked {
+          + i {
+            @include node(map-deep-get($conf, checkbox-checked));
+          }
+        }
+      }
+      &[type="radio"] {
+        &:not(:checked) {
+          + i {
+            @include node(map-deep-get($conf, radio));
+          }
+        }
+        &:checked {
+          + i {
+            @include node(map-deep-get($conf, radio-checked));
+          }
+        }
+      }
+    }
+  }
+}

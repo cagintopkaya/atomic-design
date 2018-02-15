@@ -1,0 +1,6 @@
+@mixin flex-equal-widths() {
+  @include flexbox();
+  > * {
+    @include flex(1);
+  }
+}

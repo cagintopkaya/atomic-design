@@ -1,0 +1,24 @@
+@import "color-diff";
+@import "p-width";
+@import "p-height";
+@function zeroToAuto($v) {
+  @if $v == 0 {
+    @return auto;
+  }
+  @else {
+    @return $v;
+  }
+}
+
+@mixin positioning($m) {
+  @if length($m) == 4 {
+    top: zeroToAuto(nth($m, 1));
+    right: zeroToAuto(nth($m, 2));
+    bottom: zeroToAuto(nth($m, 3));
+    left: zeroToAuto(nth($m, 4));
+    width: auto !important;
+  }
+  @else {
+    @error "position property can contain lists as ($top, $right, $bottom, $left)";
+  }
+}

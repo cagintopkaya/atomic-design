@@ -1,0 +1,54 @@
+@mixin dropdown($dropdown-height: 500px, $position: below) {
+  position: absolute;
+  z-index: 99;
+  float: left;
+  background: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  width: calc(100% + 0px);
+  max-height: $dropdown-height;
+  @include box-sizing(border-box);
+  text-align: left;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  left: 0;
+  @include transition(.3s all ease);
+  @if $position == below {
+    top: 100%;
+  } @else if $position = above {
+    bottom: 100%;
+  } @else {
+    @error "position property can have 'above, below' values only";
+  }
+  &.active {
+    @include dropdown-active($dropdown-height);
+  }
+}
+
+@mixin dropdown-active($dropdown-height: 500px) {
+  max-height: $dropdown-height;
+  @include transition(.3s all ease);
+  overflow: auto;
+  opacity: 1;
+}
+
+@mixin drop($dropdown-height: 500px) {
+  position: absolute;
+  top: 100%;
+  z-index: 99;
+  display: none;
+  float: left;
+  list-style: none;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  min-width: calc(100% + 0px);
+  max-height: $dropdown-height;
+  width: auto;
+  @include align((
+          alignment: horizontal
+  ));
+  &.active {
+    display: block;
+  }
+}

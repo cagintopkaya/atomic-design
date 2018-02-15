@@ -1,0 +1,50 @@
+@import "landing-page-content";
+@import "landing-page-logo";
+
+@mixin landingPage($conf: ()) {
+  $conf: map-extend((
+          style : (
+                  base : (
+                          border: none,
+                          background: #f8a847
+                  )
+          )
+  ), $conf, true);
+
+  div {
+    @include node($conf);
+    height: 100vh;
+    width: 100vw;
+    /* eğer galeriye bir resim eklenmişse important ile bu ezilebiliyor
+      default beyaz*/
+    span {
+      max-height: 100vh;
+      max-width: 100vw;
+      display: block;
+      @include align(absolute, true);
+      @include max-width($mobile-width) {
+        @include align(none);
+        padding-top: 60px;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+        img {
+          @include landingPageLogo()
+        }
+      }
+      section {
+        @include landingPageContent()
+      }
+    }
+    @include max-width($mobile-width) {
+      height: calc(100vh - #{$header-height-mobile});
+    }
+  }
+}
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+@mixin menu-button($conf: ()) {
+  $conf: map-extend((
+          normal: (
+                  name: hamburger,
+                  style: ()
+          ),
+          active: (
+                  name: close,
+                  style: ()
+          )
+  ), $conf, true);
+  &:not(.active) {
+    i {
+      @include icon(map-deep-get($conf, normal));
+    }
+  }
+  &.active {
+    i {
+      @include icon(map-deep-get($conf, active));
+    }
+  }
+}

@@ -1,0 +1,22 @@
+@mixin extends($map) {
+  @each $k, $v in $map {
+    @if $k == icon {
+      @include icon($v);
+    }
+    @else if $k == icon-list {
+      @include icon-list($v);
+    }
+    @else if $k == social-list {
+      @include social-list($v);
+    }
+    @else if $k == list-horizontal {
+      @include list-horizontal($v);
+    }
+    @else if $k == list-inline {
+      @include list-inline($v);
+    }
+    @if $k == atom {
+      @include node($v);
+    }
+  }
+}

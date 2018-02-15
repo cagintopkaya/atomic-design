@@ -1,0 +1,68 @@
+/* a classic header layout for max. 3 items */
+@mixin headerBuilder($conf: ()) {
+  $conf: map-extend((
+          vertical-align-on: null,
+          aligned: false,
+          wrapper: true
+  ), $conf, true);
+
+  @if map-deep-get($conf, wrapper) != false {
+    @include wrapper(map-deep-get($conf, wrapper));
+  }
+  height: 100%;
+  @include flexbox();
+  @include flex-wrap(wrap);
+  @include align-items(center);
+
+  > * {
+    @include quantity-equal(1) {
+      @include align((
+              alignment: absolute
+      ));
+    }
+    @include quantity-equal(2) {
+      &:nth-child(2) {
+        @if map-deep-get($conf, aligned) == false {
+          margin-left: auto;
+        }
+        @if map-deep-get($conf, vertical-align-on) != null {
+          @include max-width(map-deep-get($conf, vertical-align-on)) {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+    @include quantity-equal(3) {
+      &:nth-child(2) {
+        @include align((
+                alignment: absolute
+        ));
+      }
+      &:nth-child(3) {
+        margin-left: auto;
+      }
+    }
+    @include quantity-equal(4) {
+      &:nth-child(3) {
+        @if map-deep-get($conf, aligned) == false {
+          margin-left: auto;
+        }
+        @if map-deep-get($conf, vertical-align-on) != null {
+          @include max-width(map-deep-get($conf, vertical-align-on)) {
+            margin-left: 0;
+          }
+        }
+      }
+      &:nth-child(4) {
+        @if map-deep-get($conf, aligned) == false {
+          margin-left: auto;
+        }
+        @if map-deep-get($conf, vertical-align-on) != null {
+          @include max-width(map-deep-get($conf, vertical-align-on)) {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+}

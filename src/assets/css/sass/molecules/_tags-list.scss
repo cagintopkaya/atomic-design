@@ -1,0 +1,6 @@
+@mixin tags-list() {
+  @include list-inline(15px);
+  a {
+    @include button($button-types, tag);
+  }
+}

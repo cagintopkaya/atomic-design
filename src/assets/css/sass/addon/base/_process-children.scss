@@ -1,0 +1,11 @@
+@mixin process-children($map) {
+  $children: map-deep-get($map, children);
+  @for $i from 1 through length($children) {
+    $c: nth($children, $i);
+    > * {
+      &:nth-child(#{$i}) {
+        @include node($c)
+      }
+    }
+  }
+}

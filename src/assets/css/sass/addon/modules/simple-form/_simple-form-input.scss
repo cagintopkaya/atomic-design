@@ -1,0 +1,3 @@
+@mixin simple-form-input($conf) {
+  @include form-input(map-deep-get($conf, input));
+}

@@ -1,0 +1,115 @@
+@mixin customSelect($conf: ()) {
+  $conf: map-extend((
+          list: (
+                  style: ()
+          ),
+          dropdown: (
+                  style: ()
+          ),
+          item: (
+                  style: ()
+          ),
+          icon: (
+                  name: arrow_down
+          ),
+          style: (
+                  focus: (),
+                  placeholder: ()
+          )
+  ), $conf, true);
+  width: 100%;
+  outline: 0;
+  position: relative;
+  cursor: pointer;
+  main {
+    display: block;
+    position: relative;
+    > div {
+      display: none;
+      position: relative;
+      background: #fff;
+      z-index: 4;
+    }
+  }
+  select {
+    @include node($conf);
+    background: transparent;
+    width: calc(100%);
+    border: 0;
+    border-radius: 0;
+    -webkit-appearance: none;
+    outline: 0;
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    -moz-appearance: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    &::-ms-expand {
+      display: none !important;
+    }
+  }
+  i {
+    z-index: 3;
+    @include icon(map-deep-get($conf, icon));
+    @include align();
+    right: 10px;
+  }
+  section {
+    @include dropdown(200px);
+    @include node(map-deep-get($conf, dropdown));
+    ul {
+      @include node(map-deep-get($conf, list));
+      li {
+        display: block;
+        cursor: pointer;
+        @include node(map-deep-get($conf, item));
+      }
+      /* TODO: bunlar güzel şeyler ama patlıyor auto-complete 'de de var.
+      @if map-search($conf, input) == false {
+
+      }
+      @else {
+        padding: map-deep-get($conf, input, style, base, padding);
+      }
+      */
+    }
+  }
+  &.active {
+    main {
+      @include each-style(map-deep-get($conf, style, focus));
+    }
+  }
+  &:not(.active) {
+    select {
+      @include each-style(map-deep-get($conf, style, placeholder));
+    }
+  }
+  &.resetable {
+    &.selected {
+      i {
+        z-index: 3;
+        @include icon(map-deep-get($conf, icon));
+      }
+    }
+  }
+  &.searchable {
+    &.active {
+      main {
+        > div {
+          display: block;
+        }
+      }
+      i {
+        z-index: 5;
+        @include icon(map-deep-get($conf, icon));
+      }
+    }
+  }
+}

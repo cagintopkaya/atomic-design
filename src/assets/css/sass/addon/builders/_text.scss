@@ -1,0 +1,25 @@
+@mixin text($conf: ()) {
+  $conf: map-extend((
+          style: (
+                  base: (
+                          name: 'text',
+                          font-weight: $font-regular,
+                          font-size: 10px,
+                          line-height: 1,
+                          color: $primary-color,
+                          border: 0,
+                          background: transparent
+                  ),
+                  hover: (),
+                  responsive: ()
+          ),
+  ), $conf, true);
+  @include node($conf);
+  a {
+    font-size: inherit;
+    color: inherit;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

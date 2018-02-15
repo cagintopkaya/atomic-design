@@ -1,0 +1,121 @@
+@import "main-slider-buttons";
+@import "main-slider-caption";
+@import "main-slider-bullets";
+
+@mixin main-slider($conf: ()) {
+  $conf: map-extend((
+          style: (
+                  base: (
+                          display: block,
+                          position: relative
+                  )
+          )
+  ), $conf, true);
+  @include node($conf);
+  /*TODO önemli: aspect-ratio $conf */
+  @include min-width($mobile-width) {
+    @include aspect-ratio(1440, 600);
+  }
+  @include max-width($md-width) {
+    @include aspect-ratio(1440, 800);
+  }
+  @include max-width($sm-width) {
+    height: calc(100vh - #{$header-height});
+  }
+  slick {
+    /* TODO: conf */
+    height: 100%;
+    .slick-list {
+      height: 100%;
+      .slick-track {
+        height: 100%;
+      }
+    }
+    .slick-slide {
+      position: relative;
+      figure {
+        height: 100%;
+        img {
+          @include img-responsive();
+          height: 100%;
+          object-fit: cover;
+          /* TODO: stretch */
+        }
+      }
+      figcaption {
+        @include main-slider-caption();
+      }
+    }
+    > button {
+      /* TODO: config */
+      @include main-slider-buttons();
+    }
+    .slick-dots {
+      position: absolute;
+      bottom: 45px;
+      @include list-inline(12px);
+      button {
+        color: transparent;
+        background: transparent;
+        width: 21px;
+        height: 21px;
+        border: 1px solid #fff;
+        @include border-radius(50%);
+        outline: 0;
+      }
+      .slick-active {
+        button {
+          background: #fff;
+        }
+      }
+      @include min-width($wrapper-width) {
+        left: calc(((100vw - #{$wrapper-width}) / 2) - 10px);
+      }
+      @include max-width($wrapper-width) {
+        left: 20px;
+      }
+      @include max-width($sm-width) {
+        display: none !important;
+      }
+    }
+  }
+  footer {
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    button {
+      @include button-reset();
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: 11px;
+      color: #fff;
+      letter-spacing: 0.573em;
+      padding-bottom: 40px;
+      padding-top: 20px;
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,000000+100&0+0,0.13+100 */
+      background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.13) 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(0,0,0,0.13) 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(0,0,0,0.13) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#21000000',GradientType=0 ); /* IE6-9 */
+      i {
+        display: block;
+        text-align: center;
+        margin-top: 3px;
+        color: #fff;
+        @include icon((
+                name: arrow_down
+        ))
+      }
+    }
+    a {
+      @include button($button-types, filled, rounded, medium);
+      margin-bottom: 10.578vh;
+    }
+    @include min-width($sm-width) {
+      display: none;
+    }
+  }
+}

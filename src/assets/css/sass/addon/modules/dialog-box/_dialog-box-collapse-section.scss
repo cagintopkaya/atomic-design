@@ -1,0 +1,31 @@
+@mixin dialog-box-collapse-section($conf) {
+  /* TODO: make this collapse() */
+
+  @if map-deep-get($conf, position) == bottom {
+    @include dropdown($position: above);
+  }
+  @else {
+    @include dropdown();
+  }
+
+  @include dropdown-active();
+
+  background: inherit;
+  left: 0;
+  padding: map-deep-get($conf, style, base, padding);
+  border-top: 1px solid #cbcbcb;
+  dl {
+    /* TODO: this can be a component horizontal-definition-list() */
+    > * {
+      @include inline-block();
+    }
+    dt {
+      @include inline-block();
+      @include node(map-deep-get($conf, text));
+      font-weight: $font-bold;
+    }
+    dd {
+      @include node(map-deep-get($conf, text));
+    }
+  }
+}

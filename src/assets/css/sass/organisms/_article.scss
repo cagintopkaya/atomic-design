@@ -1,0 +1,91 @@
+article {
+  @include wrapper(1780px, $gutter * 2);
+  > header {
+    h1 {
+      @include page-heading();
+    }
+  }
+  > main {
+    border: 1px solid $main-content-border-color;
+    background: #fff;
+    height: calc(100vh - 262px);
+    @include border-radius(6px);
+    overflow: hidden;
+    > section {
+      height: 100%;
+      overflow: auto;
+      padding-bottom: 30px;
+      @include quantity-equal(2) {
+        &:nth-of-type(1) {
+          @include column(3, 3, 3, 3);
+          background: $left-pane-bg-color;
+          > * {
+            &:last-child {
+              margin-bottom: 30px;
+            }
+          }
+        }
+        &:nth-of-type(2) {
+          @include column(9, 9, 9, 9);
+          @include flexbox();
+          @include flex-wrap(wrap);
+          > header {
+            @include column(12, 12, 12, 12);
+            ~ * {
+              &:nth-child(2n) {
+                @include column(9, 9, 9, 9);
+              }
+              &:nth-child(2n + 1) {
+                @include column(3, 3, 3, 3);
+              }
+            }
+          }
+          form {
+            @include simpleForm(map-extend($simple-form, (
+              holder: (
+                column: (6, 6, 6, 6)
+              )
+            ), true));
+            div {
+              @include quantity-greater(3) {
+                &:last-child {
+                  clear: both;
+                }
+              }
+            }
+          }
+          aside {
+            @include card();
+          }
+        }
+      }
+      header {
+        ~ ul {
+          @include list-item();
+        }
+      }
+      h2 {
+        @include content-heading();
+      }
+      h3 {
+        @include card-heading();
+      }
+      small {
+        @include form-message();
+      }
+      form {
+        @include simpleForm($simple-form);
+        h3 {
+          margin-bottom: 26px;
+        }
+        ul {
+          @include tags-list();
+        }
+      }
+    }
+  }
+  > footer {
+    @include content-footer();
+  }
+}
+

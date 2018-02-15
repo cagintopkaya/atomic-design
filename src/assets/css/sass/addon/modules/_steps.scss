@@ -1,0 +1,141 @@
+/* pagination-like progress steps */
+@mixin steps($conf: ()) {
+  $conf: map-extend((
+          border: (
+                  color: $primary-color,
+                  size: 3px
+          ),
+          caption: (
+                  placement: up,
+                  gutter: 14px,
+                  text: (),
+                  active: (
+                        text: ()
+                  )
+          ),
+          circle: (
+                  dimension: 35px,
+                  color: #fff,
+                  text: ()
+          ),
+          height: null
+  ), $conf, true);
+  display: block;
+  padding: 0 calc(#{map-deep-get($conf, circle, dimension)} / 2);
+  @if map-deep-get($conf, height) != null {
+    height: map-deep-get($conf, height);
+  }
+  @else {
+    height: calc(#{map-deep-get($conf, circle, dimension)} + #{map-deep-get($conf, caption, gutter)} + #{map-deep-get($conf, caption, text, style, font-size)} );
+    @include max-width($xs-width) {
+      height: calc((#{map-deep-get($conf, circle, dimension)} / 1.42 ) + 2px);
+    }
+  }
+  ul {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    counter-reset: steps;
+    @include align(vertical);
+    @if map-deep-get($conf, caption, placement) == up {
+    }
+    @else if map-deep-get($conf, caption, placement) == down {
+      margin-top: calc((#{map-deep-get($conf, caption, gutter)}) * -1);
+      @include max-width($xs-width) {
+        margin-top: 0;
+      }
+    }
+    li {
+      display: table-cell;
+      position: relative;
+      text-align: left;
+      border-width: 0 0 map-deep-get($conf, border, size) 0;
+      border-style: solid;
+      border-color: map-deep-get($conf, border, color);
+      &:first-child {
+         text-align: left;
+         width: 0;
+       }
+      &:last-child {
+        text-align: right;
+        a {
+          position: absolute;
+          right: auto;
+          text-align: right;
+        }
+      }
+      /* .captionText */
+      a {
+        @include text((
+                map-deep-get($conf, caption, text)
+        ));
+        @include inline-block();
+        @include text-center();
+        white-space: nowrap;
+        @if map-deep-get($conf, caption, placement) == up {
+          bottom: calc(100% + #{map-deep-get($conf, caption, gutter)} + (#{map-deep-get($conf, circle, dimension)} / 2));
+        }
+        @else if map-deep-get($conf, caption, placement) == down {
+          top: calc(100% + #{map-deep-get($conf, caption, gutter)} + (#{map-deep-get($conf, circle, dimension)} / 2));
+        }
+        position: absolute;
+        @include transform(translateX(-50%));
+        left: calc(100%);
+      }
+      &:before {
+        display: block;
+        counter-increment: steps;
+        content: counter(steps);
+
+        width: map-deep-get($conf, circle, dimension);
+        height: map-deep-get($conf, circle, dimension);
+        line-height: map-deep-get($conf, circle, dimension) !important;
+
+        @include max-width($xs-width) {
+          width: calc(#{map-deep-get($conf, circle, dimension)} / 1.42);
+          height: calc(#{map-deep-get($conf, circle, dimension)} / 1.42);
+          line-height: calc(#{map-deep-get($conf, circle, dimension)} / 1.42) !important;
+        }
+
+        @include text-center();
+
+        border: 1px solid map-deep-get($conf, border, color);
+        @include border-radius(50%);
+
+        background: map-deep-get($conf, circle, color);
+
+        @include text((
+                map-deep-get($conf, circle, text)
+        ));
+
+        position: absolute;
+        @include align(vertical, true, translateX(-50%));
+        left: calc(100%);
+        z-index: 2;
+
+      }
+      &.active {
+        a {
+          pointer-events: auto;
+          @include text((
+                  map-deep-get($conf, caption, active, text)
+          ));
+        }
+        &:before {
+          background: map-deep-get($conf, border, color);
+          color: map-deep-get($conf, circle, color)
+        }
+      }
+    }
+  }
+  @include max-width($mobile-width) {
+    ul {
+      li {
+        a {
+          display: none;
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,92 @@
+@mixin figureWithCaption($conf: ()) {
+  $conf: map-extend((
+          style: (
+                  base: (
+                          display: block,
+                          background: #EEEEEE
+                  )
+          ),
+          figure : (),
+          caption: ()
+  ), $conf, true);
+  @include node($conf);
+  figure {
+    @include flexbox();
+    @include flex-wrap(wrap);
+    > div {
+      @include aspect-ratio(720, 607);
+      @include flex(1 1 50%);
+      @include order(2);
+      > picture {
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    > figcaption {
+      @include flex(0 0 50%);
+      @include order(1);
+      @include flexbox();
+      @include flex-direction(column);
+      @include align-self(center);
+      > div {
+        margin: 0 20%;
+      }
+      h2 {
+        color: $primary-color;
+        font-size: 46px;
+        line-height: 54px;
+        font-weight: $font-regular;
+        letter-spacing: 0.08em;
+        margin: 0;
+        @include max-width($mobile-width) {
+          font-size: 31px;
+          line-height: 43px;
+          letter-spacing: 0.0539em;
+          margin-bottom: 36px;
+        }
+      }
+      p {
+        color: #A7A7A7;
+        line-height: 40px;
+        font-size: 18px;
+        font-family: "Trebuchet MS";
+        @include max-width($mobile-width) {
+          font-size: 12px;
+          line-height: 26px;
+        }
+      }
+      a {
+        font-size: 12px;
+        letter-spacing: 0.393em;
+        line-height: 46px;
+        color: #58595B;
+        @include inline-block();
+        margin-top: 32px;
+        font-weight: $font-bold;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    @include max-width($sm-width) {
+      > figcaption {
+        padding: 47px 0;
+      }
+    }
+    @include max-width($mobile-width) {
+      > div {
+        @include flex(0 0 100%);
+        @include aspect-ratio(379, 320);
+      }
+      > figcaption {
+        @include flex(0 0 100%);
+        padding: 47px 0;
+        text-align: center;
+      }
+    }
+  }
+}

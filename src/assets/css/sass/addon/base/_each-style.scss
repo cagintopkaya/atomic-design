@@ -1,0 +1,46 @@
+@mixin each-style($map) {
+  @each $k, $v in $map {
+    @if ($k == font-size) {
+      @if $v == inherit {
+        #{$k}: #{$v};
+      }
+      @else {
+        @include rem(font-size, $v);
+      }
+    }
+    @else if($k == flex-direction) {
+      @include flex-direction($v);
+    }
+    @else if($k == border-radius) {
+      @include border-radius($v);
+    }
+    @else if($k == flex-wrap) {
+      @include flex-wrap($v);
+    }
+    @else if($k == flex) {
+      @include flex($v);
+    }
+    @else if($k == rotate) {
+      @include rotate($v);
+    }
+    @else if($k == transition) {
+      @include transition($v);
+    }
+    @else if($k == transform) {
+      @include transform($v);
+    }
+    @else if $k == align {
+      @include align($v);
+    }
+      /* TODO: sakıncalı */
+    @else if($k == placeholder) {
+      @include placeholder($v);
+    }
+    @else if($k == content) {
+      #{$k}: $v;
+    }
+    @else {
+      #{$k}: #{$v};
+    }
+  }
+}

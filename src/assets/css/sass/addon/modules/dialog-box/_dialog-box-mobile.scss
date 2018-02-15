@@ -1,0 +1,14 @@
+@mixin dialog-box-mobile($conf) {
+  @include max-width($mobile-width) {
+    /* TODO: maybe make this dialog-box-responsive() */
+    overflow: hidden;
+    height: auto;
+    > div {
+      margin: calc(#{map-deep-get($conf, style, base, padding)} / 2) calc(#{map-deep-get($conf, style, base, padding)} * 2);
+      @include align(none);
+    }
+    > a {
+      right: calc(#{map-deep-get($conf, style, base, padding)} / 2);
+    }
+  }
+}

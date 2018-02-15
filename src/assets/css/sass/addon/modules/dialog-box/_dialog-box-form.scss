@@ -1,0 +1,26 @@
+@mixin dialog-box-form($conf) {
+
+  $dialog-box-form-input-config: map-deep-set(map-deep-get($conf, form, input), style, base, border-bottom, 1px solid map-deep-get($conf, text, style, base, color));
+  @include form-input($dialog-box-form-input-config);
+  ul {
+    @include list-horizontal(map-deep-get($conf, style, base, padding));
+    @include flex-row();
+    li {
+      @include flex-grow(1);
+      @include flex-basis(0);
+    }
+  }
+  label {
+    @include text((
+            map-deep-get($conf, text)
+    ));
+  }
+  button {
+    @if variable-exists(button-types) {
+      @include button($button-types, map-deep-get($conf, form, button, class));
+    }
+    @else {
+      @warn "$button-types is not defined using native styles";
+    }
+  }
+}

@@ -1,0 +1,34 @@
+@mixin dialog-box-button($conf) {
+  //TODO @çağın: jsondaki button'un style base'ine bişiler yazdım ancak içeri etkisi olmadı.
+  @include action-button($side: map-deep-get($conf, button, side));
+  @include node(map-deep-get($conf, text));
+  @include node(map-deep-get($conf, button));
+  @if map-has-key(map-deep-get($conf, text, style, base), color) {
+
+  } @else {
+    $diff: color-diff(map-deep-get($conf, cons, colors, background-color), map-deep-get($conf, cons, colors, text-color));
+    $c: apply-diff(map-deep-get($conf, style, base, background-color), $diff);
+    color: $c;
+  }
+  i {
+    @include icon((
+            name: close
+    ));
+  }
+  &.collapse {
+    &:not(.active) {
+      i {
+        @include icon((
+                name: unfold_more
+        ));
+      }
+    }
+    &.active {
+      i {
+        @include icon((
+                name: unfold_less
+        ));
+      }
+    }
+  }
+}

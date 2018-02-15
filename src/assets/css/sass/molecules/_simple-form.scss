@@ -1,0 +1,76 @@
+$simple-form: (
+  fieldset: (
+    style: (
+      base: (
+        padding: 0,
+        border: 0
+      )
+    )
+  ),
+  legend: $simple-form-description,
+  input: (
+    style: $simple-form-input
+  ),
+  custom-select: $simple-form-select,
+  textarea: (
+    style: (
+      base: (
+        border-bottom: 1px solid #E7E6E7 !important,
+        box-sizing: border-box,
+        background: transparent,
+        border-width: 0px,
+        font-size: 16px,
+        font-weight: $font-light,
+        position: relative,
+        color: #fff,
+        border: 1px solid #E7E6E7,
+        max-height: 130px !important,
+        width: 100%,
+        resize: none,
+        padding: 10px,
+        height:130px !important,
+        overflow:auto !important
+      ),
+      responsive: (
+        $xs-width:(
+          style:(
+            base:(
+              height:40px !important
+            )
+          )
+        )
+      ),
+      focus: (
+        border: 2px solid #FFED41 !important
+      )
+    )
+  ),
+  label: (
+    style: $simple-form-label
+  ),
+  holder: (
+    margin: 35px,
+    style: $simple-form-holder
+  ),
+  message: (
+    style: (
+      base: (
+        margin-top: 10px
+      )
+    )
+  ),
+  validation: (
+    holder: (
+      map: $validation-classes,
+      children: (border, color),
+      background: false,
+      border: true,
+      color: true,
+      icon: false,
+      custom: ()
+    ),
+    input: (),
+    message: ()
+  )
+);
+

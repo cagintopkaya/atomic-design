@@ -1,0 +1,6 @@
+@mixin landingPageLogo(){
+  width: 100%;
+  @include max-width($mobile-width){
+    max-width: 70%;
+  }
+}

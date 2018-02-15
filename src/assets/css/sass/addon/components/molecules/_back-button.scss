@@ -1,0 +1,10 @@
+@mixin backButton($conf: ()) {
+  $conf: map-extend((
+          icon: arrow_back,
+          style: ()
+  ), $conf, true);
+  @include node($conf);
+  i {
+    @include icon(map-deep-get($conf, icon));
+  }
+}

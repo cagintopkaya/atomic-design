@@ -1,0 +1,11 @@
+@mixin simple-form-validation-message($conf) {
+  @include node(map-deep-get($conf, message));
+  @include validation-classes(map-deep-get($conf, validation, message));
+  @if map-deep-get($conf, inline) == false {
+    display: block;
+    margin-top: map-deep-get($conf, holder, margin);
+  }
+  @else {
+
+  }
+}

@@ -1,0 +1,32 @@
+@mixin spinnerInput() {
+  main {
+    padding: 0;
+    @include clearfix();
+    > * {
+      @include pull-left();
+      width: 33.3333%;
+      height: 100%;
+    }
+    button {
+      @include button-reset();
+      &:first-of-type {
+        i {
+          @include icon((
+                  name: remove
+          ));
+        }
+        ~ button {
+          i {
+            @include icon((
+                    name: add
+            ));
+          }
+        }
+      }
+    }
+    input {
+      @include button-reset();
+      @include text-center();
+    }
+  }
+}

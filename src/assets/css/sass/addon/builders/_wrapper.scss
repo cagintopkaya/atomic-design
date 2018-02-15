@@ -1,0 +1,17 @@
+@mixin wrapper($width: $wrapper-width, $gutter: $gutter) {
+  @include clearfix();
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: auto;
+  max-width: $width;
+  display: block;
+  @include max-width($width) {
+    margin-left: $gutter;
+    margin-right: $gutter;
+  }
+  @include max-width($mobile-width) {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}

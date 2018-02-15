@@ -1,0 +1,9 @@
+loading {
+  display: block;
+  height: calc(100vh - #{$header-height});
+  > * {
+    text-align: center;
+    padding-top: 140px;
+    margin-bottom: 60px;
+  }
+}

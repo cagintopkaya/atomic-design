@@ -1,0 +1,30 @@
+@mixin form-input($conf: ()) {
+  $conf: map-extend((
+          types: ('text','email','password','tel'),
+          style:  (
+                  base: (
+                          font-size: inherit,
+                          color: inherit,
+                          display: block,
+                          width: 100%,
+                          line-height: normal,
+                          outline: 0,
+                          box-sizing: border-box,
+                          -webkit-appearance: none
+                  ),
+                  focus: (),
+                  responsive: (),
+                  placeholder: ()
+
+          )
+  ), $conf, true);
+  $inputs: ();
+  @include transition(.3s all ease);
+  @include node($conf);
+  @each $type in map-get($conf, types) {
+    &[type="#{$type}"] {
+      @include transition(.3s all ease);
+      @include node($conf);
+    }
+  }
+}

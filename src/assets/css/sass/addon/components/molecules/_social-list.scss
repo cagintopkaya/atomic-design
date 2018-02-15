@@ -1,0 +1,46 @@
+@mixin social-list($conf: ()) {
+  $conf: map-extend((
+          horizontal: false,
+          margin: 30px,
+          icons: $social-icons,
+          button: (
+                  style: (
+                          base: (
+                                  color: inherit,
+                                  font-size: inherit
+                          )
+                  )
+          ),
+          icon: (
+                  style: (
+                          base: (
+                                  color: inherit,
+                                  font-size: inherit
+                          )
+                  )
+          ),
+          type: list,
+          style: ()
+  ), $conf, true);
+  @include node($conf);
+  @include icon-list(map-deep-get($conf, icons), $type: map-deep-get($conf, type));
+  @if map-deep-get($conf, horizontal) == false {
+    > * {
+      margin-top: map-deep-get($conf, margin);
+    }
+  } @else {
+    @include list-inline(map-deep-get($conf, margin));
+    > * {
+      vertical-align: middle;
+    }
+  }
+  a {
+    @include node(map-deep-get($conf, button));
+    @include max-width($mobile-width) {
+      display: block;
+    }
+  }
+  i {
+    @include node(map-deep-get($conf, icon));
+  }
+}

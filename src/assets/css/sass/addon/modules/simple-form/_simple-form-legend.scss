@@ -1,0 +1,3 @@
+@mixin simple-form-legend($conf) {
+  @include node(map-deep-get($conf, legend));
+}

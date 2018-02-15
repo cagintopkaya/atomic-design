@@ -1,0 +1,16 @@
+@mixin menu-last-item-button() {
+  nav {
+    > ul {
+      &:first-child {
+        li {
+          &:last-child {
+            a {
+              /* TODO: make this $conf */
+              @include button($button-types, rounded, primary);
+            }
+          }
+        }
+      }
+    }
+  }
+}

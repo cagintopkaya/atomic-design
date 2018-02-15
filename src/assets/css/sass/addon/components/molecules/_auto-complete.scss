@@ -1,0 +1,58 @@
+@mixin autoComplete($conf: ()) {
+  $conf: map-extend((
+          auto-complete: (
+                  list: (
+                          style: ()
+                  ),
+                  dropdown: (
+                          style: ()
+                  ),
+                  item: (
+                          style: ()
+                  ),
+                  open-on-focus: true
+          )
+  ), $conf, true);
+  main {
+    padding: 0;
+    border: 0;
+    position: relative;
+    > input {
+      @include simple-form-input($conf);
+      @include button-reset();
+      height: 100% !important;
+      width: 100% !important;
+      @if open-on-focus {
+        &:focus {
+          + section {
+            @include dropdown-active();
+          }
+        }
+      }
+    }
+
+    > section {
+      @include dropdown();
+      @include node(map-deep-get($conf, auto-complete, dropdown));
+      ul {
+        @include node(map-deep-get($conf, auto-complete, list));
+        li {
+          display: block;
+          cursor: pointer;
+          @include node(map-deep-get($conf, auto-complete, item));
+        }
+        /* TODO: bunlar güzel şeyler ama patlıyor auto-complete 'de de var.
+        @if map-search($conf, input) == false {
+
+        }
+        @else {
+          padding: map-deep-get($conf, input, style, base, padding);
+        }
+        */
+      }
+      &.active {
+        @include dropdown-active();
+      }
+    }
+  }
+}

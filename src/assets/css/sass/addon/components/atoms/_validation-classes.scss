@@ -1,0 +1,50 @@
+@mixin validation-classes($conf: ()) {
+  $conf: map-extend((
+          map: $validation-classes,
+          children: false,
+          background: false,
+          border: false,
+          color: true,
+          icon: false,
+          custom: ()
+  ), $conf, true);
+  @each $k, $v in map-deep-get($conf, map) {
+    &.#{$k} {
+      @if map-deep-get($conf, background) == true {
+        background-color: nth($v, 1);
+      }
+      @if map-deep-get($conf, color) == true {
+        color: nth($v, 1);
+      }
+      @if map-deep-get($conf, icon) {
+        @include icon(#{$k});
+      }
+      > * {
+        @if map-deep-get($conf, children) == background {
+          background-color: nth($v, 1);
+        }
+        @if map-deep-get($conf, children) == border {
+          /* TODO: !important gönder */
+          border-color: nth($v, 1) !important;
+        }
+        @if map-deep-get($conf, color) == color {
+          color: nth($v, 1);
+        }
+        @if map-deep-get($conf, children) == both {
+          color: nth($v, 2);
+          background-color: nth($v, 1);
+          * {
+            color: inherit;
+          }
+        }
+      }
+      @if map-deep-get($conf, border) == true {
+        border-color: nth($v, 1);
+      }
+      /* more styling */
+      @if map-has-key(map-deep-get($conf, custom), $k) {
+        @include node(map-deep-get($conf, custom, $k));
+      }
+    }
+  }
+}

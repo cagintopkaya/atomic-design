@@ -1,0 +1,161 @@
+@import "main-logo";
+@import "menu-item";
+@import "main-mobile-menu";
+
+@mixin main-header($conf: ()) {
+  $conf: map-extend((
+          style: (
+                  base: (
+                          display: block,
+                          height: $header-height,
+                          background: #fff
+                  ),
+                  responsive: (
+                          $xs-width: (
+                                  style: (
+                                          base: (
+                                                  height: $header-height-mobile
+                                          )
+                                  )
+                          )
+                  )
+          ),
+          list-item: (
+                  style: ()
+          ),
+          fixed: true,
+          push: true,
+          menu-gutter: (
+                  base: $header-menu-gutter,
+                  responsive: ()
+          ),
+          menu-item: (
+                  style: (
+                          base: (
+                                  color: $primary-color,
+                                  font-size: $header-menu-item-font-size,
+                                  font-family: $primary-font,
+                                  font-weight: $font-bold,
+                                  transition: .3s all ease
+                          ),
+                          hover: (
+                                  color: $revert-bg-color
+                          ),
+                          responsive: (
+                                  1400px : (
+                                          style: (
+                                                  base: (
+                                                          font-size: 12px
+                                                  )
+                                          )
+                                  )
+                          )
+                  )
+          ),
+          wrapper: (),
+          inner: (style: ()),
+          logo: (
+                  style: ()
+          )
+  ), $conf, true);
+  @include node($conf);
+
+  > div {
+    @include headerBuilder((
+      wrapper: map-deep-get($conf, wrapper)
+    ));
+    nav {
+      &:first-of-type {
+        > a {
+          img {
+            height: 42px;
+            @include main-logo();
+            position: relative;
+            @include node(map-deep-get($conf, logo));
+            @include transition(.3s all ease);
+            opacity: 1;
+            @include translate(0, 0px);
+            &:first-child {
+              + img {
+                opacity: 0;
+                @include align((
+                  alignment: absolute
+                ));
+                @include translate(0, 100px);
+              }
+            }
+          }
+        }
+      }
+      > ul {
+        white-space: nowrap;
+        @include list-inline(map-deep-get($conf, menu-gutter, base));
+        > li {
+          @include node(map-deep-get($conf, list-item));
+          > a {
+            @include node(map-deep-get($conf, menu-item));
+          }
+        }
+      }
+    }
+    a {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+    @include node(map-deep-get($conf, inner));
+  }
+  @include transition(.3s height ease);
+  @if map-deep-get($conf, fixed) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10001;
+    width: 100%;
+    background: map-deep-get($conf, style, base, background);
+  }
+  @if map-deep-get($conf, push) {
+    ~ [ui-view] {
+      padding-top: $header-height;
+      @include max-width($mobile-width) {
+        padding-top: 89px;
+      }
+    }
+  } @else {
+  }
+  @include max-width($sm-width) {
+    /* TODO: make mainHeaderResponsive() */
+    height: $header-height-mobile;
+    @include transition(.3s height ease);
+    border-bottom: 1px solid #DBDBDB;
+    > div {
+      height: 100%;
+      > nav {
+        > ul {
+          @include list-inline(map-deep-get($conf, menu-gutter, base) / 2);
+          > li {
+            > a {
+              a {
+                font-size: 14px;
+              }
+            }
+            &:last-child {
+              a {
+                /* TODO: ? */
+                line-height: 40px !important;
+                height: 40px !important;
+                font-size: 14px !important;
+                padding: 0 20px !important;
+              }
+            }
+          }
+        }
+      }
+      img {
+        height: 35px !important;
+        @include transition(.3s height ease);
+      }
+    }
+    + [ui-view] {
+      padding-top: $header-height-mobile;
+    }
+  }
+}

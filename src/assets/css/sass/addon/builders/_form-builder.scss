@@ -1,0 +1,87 @@
+@mixin form-builder($conf: ()) {
+  $conf: map-extend((
+          inputs: (),
+          holders: (
+            style: (),
+            icon: (
+              icons: (),
+              position: left,
+              iconWidth: 50px,
+              style: ()
+            )
+          ),
+          validations: (
+            colors: (
+              error: red,
+              warning: yellow,
+              success: green,
+            ),
+            /*style: (
+              self: (),
+              text: (),
+              input: (
+                icon: false
+              )
+            ),*/
+          )
+  ), $conf, true);
+  > section {
+    > * {
+      @each $k, $v in map-get(map-get($conf, holders), style) {
+        #{$k}: #{$v} !important;
+      }
+      @if length(map-deep-get($conf, holders, icon, icons)) > 1 {
+        position: relative !important;
+        > i {
+          &:before {
+            @include align(vertical, true);
+          }
+          @each $k, $v in map-deep-get($conf, holders, icon, style) {
+            @if($k == font-size) {
+              @include rem(font-size, $v);
+            }
+            @else {
+              #{$k}: #{$v};
+            }
+          }
+        }
+        @if map-deep-get($conf, holders, icon, position) == left {
+          input {
+            padding-left: map-deep-get($conf, holders, icon, iconWidth) !important;
+          }
+          > i {
+            &:before {
+              left: 0;
+              width: map-deep-get($conf, holders, icon, iconWidth) !important;
+              @include text-center();
+            }
+          }
+        }
+        @else {
+          input {
+            padding-right: map-deep-get($conf, holders, icon, iconWidth) !important;
+          }
+          > i {
+            &:before {
+              width: map-deep-get($conf, holders, icon, iconWidth) !important;
+              @include text-center();
+            }
+          }
+        }
+        @for $i from 0 to length(map-deep-get($conf, holders, icon, icons))  {
+          &:nth-child(#{$i + 1}) {
+            > i {
+              @include icon(#{nth(map-deep-get($conf, holders, icon, icons), $i + 1)});
+            }
+          }
+        }
+      }
+    }
+  }
+  @include form-input(
+      map-get($conf, inputs)
+  );
+  custom-select {
+    @include node(map-get($conf, inputs));
+  }
+}

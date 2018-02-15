@@ -1,0 +1,16 @@
+@mixin card() {
+  background: $secondary-background-color;
+  border: 1px solid darken($secondary-background-color, 4%);
+  @include border-radius(6px);
+  padding-bottom: 90px;
+  > footer {
+    position: absolute;
+    bottom: 15px;
+    left: 10px;
+    width: calc(100% - 20px);
+    a {
+      @include button($button-types, default, small, block);
+    }
+  }
+}
+

@@ -1,0 +1,42 @@
+$page-heading: (
+  style: (
+    base: (
+      font-weight: $font-light,
+      font-size: 36px,
+      color: $primary-heading-color
+    )
+  )
+);
+
+$content-heading: (
+  style: (
+    base: (
+      font-color: $primary-heading-color,
+      font-size: 22px,
+      text-align: left,
+      margin: 20px 0 13px 0
+    )
+  )
+);
+
+$card-heading: (
+  style: (
+    base: (
+      font-size: 19px,
+      color: $primary-heading-color,
+      margin: 16px 0 6px 0
+    )
+  )
+);
+
+@mixin page-heading() {
+  @include node($page-heading);
+}
+
+@mixin content-heading() {
+  @include node($content-heading);
+}
+
+@mixin card-heading() {
+  @include node($card-heading);
+}

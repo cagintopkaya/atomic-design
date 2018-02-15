@@ -1,0 +1,45 @@
+.ngModal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  .overlay {
+    @include align((
+            alignment: absolute
+    ));
+    z-index: 9;
+  }
+  > a {
+    position: absolute;
+    right: 118px;
+    top: 68px;
+    z-index: 2;
+    i {
+      color: #fff;
+      font-size: 38px;
+      @include icon((
+              name: close
+      ));
+    }
+    @include max-width(1200px) {
+      right: 20px;
+      top: 20px;
+    }
+    @include max-height(740px) {
+      right: 20px;
+      top: 20px;
+    }
+  }
+  .backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    background: rgba(0,0,0,0.8);
+  }
+}
+

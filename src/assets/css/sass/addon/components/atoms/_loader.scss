@@ -1,0 +1,9 @@
+@mixin js-loading() {
+  opacity: 0;
+  @include transition(1s opacity ease);
+  width: 20px !important;
+  height: 20px !important;
+  @include align(absolute);
+  min-height: 1px !important;
+  min-width: 1px !important;
+}

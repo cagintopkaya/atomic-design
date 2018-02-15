@@ -1,0 +1,47 @@
+@mixin main-slider-caption() {
+  position: absolute;
+  width: 35.13%;
+  top: calc((100vw * (600 / 1440)) / 2);
+  @include min-width(#{$md-width} + 1) {
+    @include transform(translateY(-100%));
+  }
+  margin-top: 30px;
+  @include min-width($wrapper-width) {
+    left: calc(((100vw - #{$wrapper-width}) / 2) - 10px);
+  }
+  @include max-width(1630px) {
+    left: 120px;
+  }
+  @include max-width($wrapper-width) {
+    left: 120px;
+  }
+  /*TODO: make first-child + */
+  h2 {
+    color: #000;
+    font-size: 44px;
+    margin: 0 0 5px 0;
+    font-weight: $font-regular;
+  }
+  p {
+    color: #000;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  @include max-width($sm-width) {
+    top: 6.334vh;
+    left: 46px;
+    /* TODO: $conf'dan button'la birleştir */
+    width: calc(100% - (46px * 2));
+    h2 {
+      font-size: 6.084vw;
+    }
+    p {
+      font-size: 12px;
+      line-height: 25px;
+    }
+  }
+  @include max-width($md-width) {
+    top: 20px;
+    margin-top: 0;
+  }
+}

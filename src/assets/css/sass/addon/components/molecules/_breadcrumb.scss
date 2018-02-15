@@ -1,0 +1,43 @@
+@mixin breadcrumb($conf: ()) {
+  $conf: map-extend((
+          spacing: 14px,
+          seperator: "/",
+          link: (),
+          active: (),
+          absolute: false
+  ), $conf, true);
+  margin-top: 20px;
+  @include clearfix();
+  display: block;
+  nav {
+    @include wrapper();
+    ul {
+      @include list-inline(14px);
+      > * {
+        a {
+          @include node(map-deep-get($conf, link));
+        }
+        + * {
+          a {
+            position: relative;
+            &:before {
+              content: map-deep-get($conf, seperator);
+              position: relative;
+              left: calc(-1 * #{map-deep-get($conf, spacing)} / 2);
+            }
+          }
+        }
+        &:last-child {
+          a {
+            @include node(map-deep-get($conf, active));
+            pointer-events: none;
+          }
+        }
+      }
+    }
+  }
+  @if map-deep-get($conf, absolute) == true {
+    position: absolute;
+    width: 100%;
+  }
+}

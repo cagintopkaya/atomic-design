@@ -1,0 +1,118 @@
+@import "dialog-box-positioning";
+@import "dialog-box-collapse-section";
+@import "dialog-box-form";
+@import "dialog-box-button";
+@import "dialog-box-text";
+@import "dialog-box-mobile";
+
+
+@mixin dialogBox($conf: ()) {
+  $conf: map-extend((
+          position: bottom, /* true, bottom, above, below */
+          style: (
+                  base : (
+                          height: 60px,
+                          padding: 20px,
+                          background-color: purple,
+                          text-align: center,
+                          box-sizing: border-box,
+                          z-index: 99999
+                  )
+          ),
+          text: (
+                  style: (
+                          base: (
+                                  text-align: center,
+                                  font-size: 20px
+                          )
+                  )
+          ),
+          link: (
+                  style: (
+                          base: (
+                                  font-size: 20px,
+                                  color: #fff
+                          )
+                  )
+          ),
+          button: (
+                  side: right
+          ),
+          form: (
+                  label: (),
+                  input: (
+                      style: (
+                          base: (
+                                  background: transparent
+                          )
+                      )
+                  ),
+                  button: (
+                          class: (primary, medium),
+                          style: ()
+                  )
+          ),
+          cons: (
+                  style: (
+                          base: (
+                                  display: block,
+                                  width: 100%
+                          )
+                  ),
+                  colors: (
+                          background-color: #7b2f3d,
+                          text-color: #ffffff,
+                          link-color: #c8b682
+                  )
+          )
+  ), $conf, true);
+
+  section {
+    @include node($conf);
+    > div {
+      @include wrapper();
+      p {
+        @include dialog-box-text($conf);
+        a {
+          /*TODO @çağın: al bunu burdan */
+          text-decoration: underline;
+        }
+      }
+    }
+    > button {
+      @include dialog-box-button($conf);
+      /*TODO @çağın: bu 10px ne arıyor burda */
+      right: 10px;
+    }
+    /* responsive */
+    @include dialog-box-mobile($conf);
+
+    /* additional components */
+    @include validation-classes((
+            background: both,
+            children: both
+    ));
+  }
+  aside {
+    p {
+      @include dialog-box-text($conf);
+    }
+    &.collapse {
+      @include dialog-box-collapse-section($conf);
+    }
+  }
+  form {
+    @include dialog-box-form($conf);
+  }
+
+  /*
+  @include max-width($mobile-width) {
+    top: $header-height-mobile !important;
+  }
+  */
+
+  /*constants*/
+  @include node(map-deep-get($conf, cons));
+  @include dialog-box-positioning($conf);
+
+}

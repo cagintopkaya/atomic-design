@@ -1,0 +1,32 @@
+/*
+                  action: (
+                    style: (),
+                    header: (),
+                    text: (),
+                    icon: (),
+                    button: ()
+                  )
+*/
+
+@mixin contact-us-action($conf) {
+  $contact-us-action: map-deep-get($conf, action);
+  @include node($contact-us-action);
+  main {
+    > h3 {
+      $header: map-deep-get($contact-us-action, header);
+      @include node($header);
+    }
+    > p {
+      $text: map-deep-get($contact-us-action, text);
+      @include node($text);
+    }
+    > i {
+      $icon: map-deep-get($contact-us-action, icon);
+      @include icon($icon);
+    }
+    > button {
+      /* TODO: */
+      margin-top: 40px;
+    }
+  }
+}

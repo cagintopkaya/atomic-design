@@ -1,0 +1,10 @@
+@mixin rotated($direction: left) {
+  @if $direction == left {
+    transform-origin: 0% 0%;
+    @include rotate(-90);
+  }
+  @if $direction == right {
+    transform-origin: 100% 100%;
+    @include rotate(90);
+  }
+}

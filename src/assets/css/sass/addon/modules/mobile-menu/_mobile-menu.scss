@@ -1,0 +1,59 @@
+@mixin mobileMenu() {
+  display: block;
+  position: fixed;
+  top: $header-height-mobile;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+  z-index: 101;
+  max-height: 0;
+  overflow: hidden;
+  border-top: 1px solid transparent;
+  opacity: 0;
+  @include transition(.6s all ease);
+  &.active {
+    @include transition(.6s all ease);
+    opacity: 1;
+    border-top: 1px solid #DBDBDB;
+    max-height: calc(100vh - #{$header-height-mobile});
+  }
+  nav {
+    margin-top: 20px;
+    @include wrapper();
+    ul {
+      li {
+        text-align: center;
+        a {
+          font-size: 23px;
+          color: $primary-color;
+          display: block;
+          line-height: 61px;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+      }
+    }
+  }
+  footer {
+    text-align: center;
+    margin: 50px 10px;
+    > a {
+      @include button($button-types, primary, rounded);
+    }
+    ul {
+      @include list-inline(35px);
+      @include social-list((
+              text: (
+                      style: (
+                              base: (
+                                      color: $primary-color
+                              )
+                      )
+              )
+      ));
+      i {
+        font-size: 19px;
+      }
+    }
+  }
+}

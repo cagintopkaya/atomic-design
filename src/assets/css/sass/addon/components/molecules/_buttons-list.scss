@@ -1,0 +1,22 @@
+@mixin buttons-list($conf: ()) {
+  $conf: map-extend((
+          margin-left: 10px
+  ), $conf, true);
+  ul {
+    @include flexbox();
+    @include justify-content(center);
+    li {
+      a {
+        @include button($button-types, secondary, block);
+      }
+      &:last-child {
+        a {
+          @include button($button-types, primary, block);
+        }
+      }
+      + li {
+        margin-left: map-deep-get($conf, margin-left);
+      }
+    }
+  }
+}

@@ -1,0 +1,195 @@
+@mixin simple-form-holder($conf) {
+  @include node(map-deep-get($conf, holder));
+  @if(map-deep-get($conf, holder,column) == false) {
+    margin-top: map-deep-get($conf, holder, margin);
+  }
+  @else {
+    margin-bottom: map-deep-get($conf, holder, margin);
+    margin-top: 0 !important;
+    $col-1: nth(map-deep-get($conf, holder, column),1);
+    $col-2: nth(map-deep-get($conf, holder, column),2);
+    $col-3: nth(map-deep-get($conf, holder, column),3);
+    $col-4: nth(map-deep-get($conf, holder, column),4);
+    @include column($col-1, $col-2, $col-3, $col-4);
+  }
+  &:first-of-type {
+    margin-top: 0;
+  }
+  @include flexbox();
+  @if map-deep-get($conf, inline) == false {
+    @include flex-wrap(wrap);
+    @include justify-content(space-between);
+    label {
+      @include flex(1 0 100%);
+      max-width: 100%;
+    }
+    small {
+      @include flex(1 0 100%);
+      max-width: 100%; /* IE Fix */
+    }
+    > input {
+      @include flex(1 0 100%);
+      max-width: 100%; /* IE Fix */
+    }
+    > main {
+      @include flex(1 0 100%);
+      max-width: 100%; /* IE Fix */
+    }
+    > div {
+      $m: map-deep-get($conf, holder, margin);
+      @if $m == 0 {
+        $m: 20px;
+      }
+      /* TODO: for dön */
+      @include quantity-equal(1, $children: 'type') {
+        $basis: (100% / 1) - (#{$m} / 1 * 0);
+        @include flex(0 0 #{$basis});
+        @include ie-hack() {
+          flex-basis: $basis;
+          max-width: $basis;
+        }
+      }
+      @include quantity-equal(2, $children: 'type') {
+        $basis: (100% / 2) - (#{$m} / 2 * 1);
+        @include flex(0 0 #{$basis});
+        @include ie-hack() {
+          flex-basis: $basis;
+          max-width: $basis;
+        }
+      }
+      @include quantity-equal(3, $children: 'type') {
+        $basis: (100% / 3) - (#{$m} / 3 * 2);
+        @include flex(0 0 #{$basis});
+        @include ie-hack() {
+          flex-basis: $basis;
+          max-width: $basis;
+        }
+      }
+      @include quantity-equal(4, $children: 'type') {
+        $basis: calc((100% / 4) - (#{$m} / 4 * 3));
+        @include flex(0 0 #{$basis});
+        @include ie-hack() {
+          flex-basis: $basis;
+          max-width: $basis;
+        }
+      }
+    }
+  }
+  @else {
+    /*inline form making*/
+    @include align-items(center);
+    label {
+      $basis: map-deep-get($conf, inline, label);
+      @include flex(0 0 #{$basis});
+      @include ie-hack() {
+        flex-basis: $basis;
+        max-width: $basis;
+      }
+    }
+    > *:not(label):not(small):not(div) {
+      $basis: map-deep-get($conf, inline, input);
+      @include flex(0 0 #{$basis});
+      @include ie-hack() {
+        flex-basis: $basis;
+        max-width: $basis;
+      }
+    }
+    small {
+      $basis: map-deep-get($conf, inline, error);
+      @include flex(1 1 #{$basis});
+      @include ie-hack() {
+        flex-basis: $basis;
+        max-width: $basis;
+      }
+    }
+    > div {
+      /* TODO: for dön */
+      @include quantity-equal(1, $children: 'type') {
+        $basis: map-deep-get($conf, inline, input);
+        @include flex(0 0 #{$basis});
+        @include ie-hack() {
+          flex-basis: $basis;
+          max-width: $basis;
+        }
+      }
+      @include quantity-equal(2, $children: 'type') {
+        $basis: calc((#{map-deep-get($conf, inline, input)} / 2) - (#{map-deep-get($conf, inline, gutter)} * 1 / 2));
+        @include flex(0 0 #{$basis});
+        @include ie-hack() {
+          flex-basis: $basis;
+          max-width: $basis;
+        }
+      }
+      @include quantity-equal(3, $children: 'type') {
+        $basis: calc((#{map-deep-get($conf, inline, input)} / 3) - (#{map-deep-get($conf, inline, gutter)} * 2 / 3));
+        @include flex(0 0 #{$basis});
+        @include ie-hack() {
+          flex-basis: $basis;
+          max-width: $basis;
+        }
+      }
+      @include quantity-equal(4, $children: 'type') {
+        $basis: calc((#{map-deep-get($conf, inline, input)} / 4) - (#{map-deep-get($conf, inline, gutter)} * 3 / 4));
+        @include flex(0 0 #{$basis});
+        @include ie-hack() {
+          flex-basis: $basis;
+          max-width: $basis;
+        }
+      }
+    }
+    > * {
+      @include inline-block();
+      + * {
+        margin-left: map-deep-get($conf, inline, gutter);
+      }
+    }
+    @include max-width($mobile-width) {
+      display: block;
+      label {
+        width: 100%;
+        display: block;
+      }
+      > *:not(label):not(small):not(div) {
+        margin: 0;
+        width: 100%;
+      }
+      small {
+        display: block;
+        margin: 5px 0 0 0;
+        /* TODO: burada small da dağılıyor. */
+        width: 100%;
+        clear: both;
+      }
+      > * {
+        &:first-child {
+          + * {
+            margin-left: 0;
+          }
+        }
+      }
+      > div {
+        display: block;
+        @include pull-left();
+        /* TODO: for dön */
+        /* TODO önemli: burada bir sıkıntı var neden ilki flex de diğerleri width? */
+        @include quantity-equal(1, $children: 'type') {
+          $basis: map-deep-get($conf, inline, input);
+          @include flex(0 0 #{$basis});
+          @include ie-hack() {
+            width: $basis;
+          }
+        }
+        @include quantity-equal(2, $children: 'type') {
+          width: calc((100% - (#{map-deep-get($conf, inline, gutter)} * 1)) / 2);
+        }
+        @include quantity-equal(3, $children: 'type') {
+          width: calc(((100% - (#{map-deep-get($conf, inline, gutter)} * 2)) / 3));
+        }
+        @include quantity-equal(4, $children: 'type') {
+          width: calc((#{map-deep-get($conf, inline, input)} / 4) - (#{map-deep-get($conf, inline, gutter)} * 3 / 4));
+        }
+        /* TODO: burada small da dağılıyor. */
+      }
+    }
+  }
+}

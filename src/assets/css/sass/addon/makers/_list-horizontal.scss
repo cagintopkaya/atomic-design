@@ -1,0 +1,22 @@
+@mixin list-horizontal($margin-left) {
+  @include clearfix;
+  > * {
+    @include pull-left();
+    margin-left: $margin-left;
+    &:first-child {
+      margin-left:0 !important;
+    }
+  }
+}
+
+@mixin list-inline($margin-left) {
+  @include clearfix;
+  > * {
+    display:inline-block;
+    margin-left: $margin-left;
+    float: none !important;
+    &:first-child {
+      margin-left:0 !important;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@mixin button($types, $args...) {
+  @include node(map-deep-get($types, default));
+  /* builder */
+  @each $k, $v in $types {
+    @if (index($args, $k)) {
+      @include node($v);
+    }
+  }
+}

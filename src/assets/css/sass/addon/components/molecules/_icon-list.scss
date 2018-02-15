@@ -1,0 +1,29 @@
+@mixin icon-list($icon, $style: (style:()), $type: list) {
+  $i: 0;
+  @if $type == list {
+    @each $k, $v in $icon {
+      > * {
+        &:nth-child(#{$i + 1}) {
+          i {
+            @include icon(map-extend((name: $k), $v, true));
+            @include node($style);
+          }
+        }
+      }
+      $i: $i + 1;
+    }
+  }
+  @else {
+    @each $k, $v in $icon {
+      > dd {
+        &:nth-of-type(#{$i + 1}) {
+          i {
+            @include icon(map-extend((name: $k), $v, true));
+            @include node($style);
+          }
+        }
+      }
+      $i: $i + 1;
+    }
+  }
+}

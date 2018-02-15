@@ -1,0 +1,36 @@
+#main-header {
+  @include main-header((
+    fixed: false,
+    push: false,
+    wrapper: $wrapper-width,
+    logo: (
+      style: (
+        base: (
+          width: 32px,
+          height: auto
+        )
+      )
+    ),
+    style: (
+      base: (
+        background-color: $primary-color
+      )
+    ),
+    menu-item: (
+      style: (
+        base: (
+          color: #fff,
+          font-weight: $font-regular,
+          letter-spacing: 0.1em
+        )
+      )
+    )
+  ));
+  ul {
+    @include icon-list($menu-icons);
+    i {
+      margin-right: 4px;
+    }
+  }
+}
+

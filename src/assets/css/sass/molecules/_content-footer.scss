@@ -1,0 +1,27 @@
+@mixin content-footer() {
+  padding: 35px 0;
+  ul {
+    @include flexbox();
+    li {
+      a {
+        @include button($button-types, short);
+      }
+      @include quantity-equal(3) {
+        &:nth-child(1) {
+          a {
+            @include button($button-types, primary, short);
+          }
+        }
+        &:nth-child(2) {
+          margin-left: auto;
+          margin-right: 60px;
+        }
+        &:nth-child(3) {
+          a {
+            @include button($button-types, cancel, short);
+          }
+        }
+      }
+    }
+  }
+}

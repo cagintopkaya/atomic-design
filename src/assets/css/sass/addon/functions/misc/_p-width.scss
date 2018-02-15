@@ -1,0 +1,3 @@
+@function pWidth($self, $container: $wrapper-width) {
+  @return ($self / $container ) * 100 * 1%
+}

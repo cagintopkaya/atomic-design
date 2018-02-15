@@ -1,0 +1,11 @@
+@mixin dateSelect() {
+  @include clearfix();
+  > div {
+    label {
+      display: none;
+    }
+    small {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,69 @@
+@mixin dialog-box-positioning($conf) {
+
+  $Position: map-deep-get($conf, position);
+
+  @if $Position == false {
+    position: relative;
+    height: auto;
+  }
+  @else {
+    position: fixed;
+    left: 0;
+    z-index: 99;
+    @if $Position == true {
+      top: 0;
+      > section {
+        min-height: map-deep-get($conf, style, base, height);
+        height: auto;
+      }
+    }
+    @else if $Position == bottom {
+      bottom: 0;
+      > section {
+        min-height: map-deep-get($conf, style, base, height);
+        height: auto;
+      }
+    }
+    @else if $Position == above {
+      @if variable-exists(header-height) {
+        top: 0;
+        /* if only dialog-box used for whole page and not in a section. sadly there is no way to change another module's config file outside as i know 26.01.17 */
+        ~ main-header {
+          /* TODO: change this to top only not margin-top when main-header() is ready */
+          margin-top: map-deep-get($conf, style, base, height) !important;
+        }
+      }
+      @if variable-exists(header-height-mobile) {
+        @include max-width($mobile-width) {
+          top: $header-height-mobile;
+        }
+      }
+      @else {
+        @error "You must specify a $header-height to use this feature";
+      }
+    }
+    @else if $Position == below {
+      @if variable-exists(header-height) {
+        top: $header-height;
+        > section {
+          min-height: map-deep-get($conf, style, base, height);
+          height: auto;
+        }
+      }
+      @if variable-exists(header-height-mobile) {
+        @include max-width($mobile-width) {
+          top: $header-height-mobile;
+        }
+      }
+      @else {
+        @error "You must specify a $header-height-mobile to use this feature";
+      }
+    }
+    @else if type_of($Position) == list {
+      @include positioning($Position);
+    }
+    @else {
+      @error "position property can have 'true, bottom, above, below, ($top, $right, $bottom, $left)' values only";
+    }
+  }
+}

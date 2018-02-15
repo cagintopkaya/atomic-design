@@ -1,0 +1,25 @@
+@mixin iScroll($conf: ()) {
+  $conf: map-extend((
+          bar-color: #ebeff2,
+          padding-right: 0,
+          indicator-color: #ababab
+  ), $conf, true);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  padding-right: map-deep-get($conf, padding-right);
+  .iScrollVerticalScrollbar {
+    background: map-deep-get($conf, bar-color) !important;
+    width: 4px !important;
+    .iScrollIndicator {
+      background: map-deep-get($conf, indicator-color) !important;
+      width: 4px !important;
+    }
+  }
+
+  padding-right: 10px;
+  padding-bottom: 10px;
+}

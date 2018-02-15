@@ -1,0 +1,189 @@
+@import "simple-form-input";
+@import "simple-form-legend";
+@import "simple-form-holder";
+@import "simple-form-label";
+@import "simple-form-validation-message";
+
+$simple-form-fieldset: (
+        base: (
+                padding: 20px,
+                border: 1px solid $primary-color
+        )
+);
+$simple-form-legend: (
+        base: (
+                font-size: 19px,
+                line-height: 1.4,
+                font-weight: $font-bold,
+                color: #000,
+                text-align: center,
+                margin-bottom: 10px
+        )
+);
+$simple-form-input: (
+        base: (
+                height: 40px,
+                border: 1px solid #cdcdcd,
+                padding: 0 10px,
+                box-sizing: border-box
+        ),
+        focus: (
+                border-color: $primary-color
+        )
+);
+$simple-form-label: (
+        base: (
+                color: #000
+        )
+);
+$simple-form-holder: (
+        style: (
+        )
+);
+
+@mixin simpleForm($conf: ()) {
+  $conf: map-extend((
+          fieldset: (
+                  style: $simple-form-fieldset
+          ),
+          legend: (
+                  inside: false,
+                  style: $simple-form-legend
+          ),
+          input: (
+                  style: $simple-form-input
+          ),
+          textarea: (
+                  style: (
+                          base:(
+                                  resize: none,
+                                  outline: 0,
+                                  box-sizing: border-box
+                          )
+                  )
+          ),
+          label: (
+                  style: $simple-form-label
+          ),
+          holder: (
+                  margin: 20px,
+                  column: false,
+                  style: $simple-form-holder
+          ),
+          message: (
+                  style: ()
+          ),
+          button: (primary, block),
+          inline: false,
+          validation: (
+                  holder: (),
+                  input: (),
+                  message: ()
+          ),
+          spinner: (
+                  style: (
+                          base: (
+                                  flex: 0 0 20% !important
+                          )
+                  ),
+          ),
+          auto-complete: (
+                  style: (),
+                  dropdown: (
+                          style: ()
+                  )
+          ),
+          checkbox: (
+                  style: ()
+          )
+  ), $conf, true);
+  fieldset {
+    @if(map-deep-get($conf, holder, column) == false) {
+    }
+    @else {
+      @include clearfix();
+      @include make-row();
+    }
+    border: 0;
+    padding: 0;
+    @if map-deep-get($conf, legend, inside) {
+      @include node(map-deep-get($conf, fieldset));
+    } @else {
+      > section {
+        @include node(map-deep-get($conf, fieldset));
+      }
+    }
+    > legend {
+      @include simple-form-legend($conf);
+    }
+    > *:not(legend) {
+      @include simple-form-holder($conf);
+      @include box-sizing(border-box);
+      @include validation-classes(map-deep-get($conf, validation, holder));
+      input {
+        @include simple-form-input($conf);
+        @include validation-classes(map-deep-get($conf, validation, input));
+      }
+      textarea {
+        @include node(map-deep-get($conf, textarea));
+        @include validation-classes(map-deep-get($conf, validation, input));
+      }
+      /**/
+      main {
+        @include node(map-deep-get($conf, input));
+        @include validation-classes(map-deep-get($conf, validation, input));
+      }
+      label {
+        @include simple-form-label($conf);
+      }
+      small {
+        @include simple-form-validation-message($conf);
+        @include node(map-deep-get($conf, message));
+      }
+    }
+    /* additional components */
+    date-select {
+      @include dateSelect();
+    }
+    custom-checkbox {
+      @include checkbox-radio(map-deep-get($conf, checkbox));
+      label {
+        @include validation-classes(map-extend(map-deep-get($conf, validation, input), (children: border)));
+      }
+    }
+    custom-radio {
+      @include checkbox-radio(map-deep-get($conf, checkbox));
+    }
+    spinner-input {
+      @include spinnerInput();
+      > main {
+        @include node(map-deep-get($conf, spinner));
+      }
+    }
+    /* auto-complete ile select'in dropdown'i aynı olmalı */
+    auto-complete {
+      @include autoComplete($conf);
+    }
+    custom-select {
+      @include customSelect(map-deep-get($conf, custom-select));
+    }
+    custom-multi-select {
+      @include customSelect(map-deep-get($conf, custom-select));
+    }
+  }
+  footer {
+    @include text-center();
+    margin-top: map-deep-get($conf, holder, margin);
+    /*TODO: not working
+    button {
+      $button: "default";
+      @each $k in map-deep-get($conf, button) {
+        @warn $k;
+        $button: $button + "," + $k;
+      }
+      @include button($button-types, $button);
+
+    }*/
+  }
+}
+

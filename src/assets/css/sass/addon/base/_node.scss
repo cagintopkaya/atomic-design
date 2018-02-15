@@ -1,0 +1,111 @@
+@mixin node($map) {
+  @each $k, $v in map-deep-get($map, style) {
+    @if $k == base {
+      @include each-style($v);
+    }
+    @else if $k == hover {
+      &:hover {
+        @include each-style($v);
+      }
+    }
+    @else if $k == before {
+      &:before {
+        @include node($v);
+      }
+    }
+    @else if $k == after {
+      &:after {
+        @include node($v);
+      }
+    }
+    @else if $k == focus {
+      &:focus {
+        @include each-style($v);
+      }
+    }
+    @else if $k == first-child {
+      &:first-child {
+        @include each-style($v);
+      }
+    }
+    @else if $k == last-child {
+      &:last-child {
+        @include each-style($v);
+      }
+    }
+    @else if $k == next {
+      + * {
+        @include each-style($v);
+      }
+    }
+    @else if $k == responsive {
+      @each $m, $n in $v {
+        @include max-width($m) {
+          @include node($n);
+        }
+      }
+    }
+      /* TODO: should be in extend but stays now for backward compat. */
+    @else if $k == icon {
+      @include icon($v);
+    }
+    @else if $k == extends {
+      @include extends($v);
+    }
+    @else if $k == wrapper {
+      @include wrapper($v);
+    }
+    @else if $k == placeholder {
+      @include placeholder($v);
+    }
+    @else if $k == inline {
+      @include inline-row($v);
+    }
+    @else if $k == vertical-rhythm {
+      > * {
+        + * {
+          margin-top: $v;
+        }
+      }
+    }
+    @else if $k == children {
+      @each $e, $f in $v {
+        @if type-of($e) == number {
+          > *:nth-child(#{$e}) {
+            @include node($f);
+          }
+        }
+        @else {
+          > #{$e} {
+            @include node($f);
+          }
+        }
+      }
+    }
+    @else if $k == find {
+      @each $e, $f in $v {
+        @if type-of($e) == number {
+          *:nth-child(#{$e}) {
+            @include node($f);
+          }
+        }
+        @else {
+          #{$e} {
+            @include node($f);
+          }
+        }
+      }
+    }
+    @else if $k == name {
+      @each $e in $v {
+        /* mixin interpolation is not possible in current SASS ./151216 */
+      }
+    }
+    @else {
+      &.#{$k} {
+        /* so insted we prepare a class-name for that, eg. .disabled */
+        @include node($v);
+      }
+    }
+  }
+}

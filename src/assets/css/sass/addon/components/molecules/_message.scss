@@ -1,0 +1,97 @@
+@mixin message($conf: ()) {
+  $conf: map-extend((
+          style: (
+                  base: (
+                          text-align: center
+                  )
+          ),
+          main: (
+                  style: (
+                          base: (
+                                  text-align: center
+                          )
+                  )
+          ),
+          header: (
+                  style: (
+                          base: (
+                                  color: $primary-color
+                          )
+                  )
+          ),
+          text: (
+                  style: ()
+          ),
+          icon: (
+                  style: ()
+          ),
+          validations: (
+                  success: (
+                          color: $success-color,
+                          icon: (
+                                  name: tick
+                          )
+                  ),
+                  error: (
+                          color: $error-color,
+                          icon: (
+                                  name: cross
+                          )
+                  ),
+                  warning: (
+                          color: $success-color,
+                          icon: (
+                                  name: warning
+                          )
+                  )
+          ),
+          footer: (
+                  link: (
+                          style: ()
+                  )
+          )
+  ), $conf, true);
+  @include node($conf);
+  main {
+    @include node(map-deep-get($conf, main));
+    h3 {
+      @include node(map-deep-get($conf, header));
+    }
+    p {
+      @include node(map-deep-get($conf, text));
+    }
+    i {
+      @include icon(map-deep-get($conf, icon));
+    }
+  }
+  @each $k, $v in map-deep-get($conf, validations) {
+    &.#{$k} {
+      main {
+        i {
+          @include icon(map-deep-get($v, icon));
+          color: map-deep-get($v, color);
+          border-color: map-deep-get($v, color);
+        }
+      }
+    }
+  }
+  footer {
+    @include node(map-deep-get($conf, footer));
+    a {
+      @include node(map-deep-get($conf, footer, link));
+      &:after {
+        @include align(horizontal,true);
+        @include transition(.3s width ease);
+      }
+      &:empty {
+        display: none;
+      }
+      &:hover {
+        &:after {
+          @include transition(.3s width ease);
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+$button-types: (
+  default: (
+    style: (
+      base: (
+        font-weight: $font-regular,
+        text-align: center,
+        font-size: 16px,
+        width: auto,
+        padding-left: 10px,
+        padding-right: 10px,
+        line-height: 52px,
+        background: #fff,
+        display: inline-block,
+        box-siing: border-box,
+        letter-spacing: 0.03em,
+        border: 1px solid #cbcbcb,
+        border-radius: 3px,
+        color: $primary-heading-color,
+        outline: 0
+      ),
+      hover: (
+        text-decoration: none
+      )
+    )
+  ),
+  primary: (
+    style: (
+      base: (
+        background: $left-pane-active-color,
+        color: #fff,
+        font-size: 16px,
+        border: 1px solid darken($left-pane-active-color, 10%)
+      )
+    )
+  ),
+  cancel: (
+    style: (
+      base: (
+        background: #a72a2a,
+        color: #fff,
+        font-size: 16px,
+        border: 1px solid darken($error-color, 10%)
+      )
+    )
+  ),
+  block: (
+    style: (
+      base: (
+        box-sizing: border-box,
+        display: block,
+        width: 100%
+      )
+    )
+  ),
+  small: (
+    style: (
+      base: (
+        line-height: 30px,
+        font-size: 14px
+      )
+    )
+  ),
+  short: (
+    style: (
+      base: (
+        width: 185px
+      )
+    )
+  ),
+  tag: (
+    style: (
+      base: (
+        width: auto,
+        padding: 5px 6px 3px,
+        border-radius: 3px,
+        line-height: 1,
+        height: auto,
+        font-size: 13px,
+        font-weight: $font-regular,
+        background: $pills-background-color,
+        color: $pills-text-color,
+        border: 1px solid $pills-border-color,
+      ),
+      active: (
+        style: (
+          base: (
+            background: darken($pills-background-color, 50%),
+            color: #fff,
+            border-color: #000
+          )
+        )
+      )
+    )
+  )
+);
