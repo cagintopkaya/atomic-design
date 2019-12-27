@@ -20,7 +20,7 @@ atomic-design/src/assets/css/sass/atoms
 atomic-design/src/assets/css/sass/molecules
 atomic-design/src/assets/css/sass/organisms
 ```
-The file which includes the layout logic and a good start point to follow how I include components into page layout:
+The file which includes the layout logic and a good starting point to follow how components are included into page layout:
 ```
 atomic-design/src/assets/css/sass/organisms/_article.scss
 ```
@@ -30,21 +30,21 @@ Please take a quick look at:
 ```
 atomic-design/src/assets/css/sass/config/_buttons.scss
 ```
-And how I use them in:
+And how they're used in:
 ```
 atomic-design/src/assets/css/sass/molecules/_content-footer.scss
 ```
-To understand my DRY approach.
+To understand the DRY approach.
 
-And please also see this configuration map:
+And also see this configuration map:
 ```
 atomic-design/src/assets/css/sass/molecules/_simple-form.scss
 ```
-And how I use it in
+And how it's used in
 ```
 atomic-design/src/assets/css/sass/organisms/_article.scss:77
 ```
-Derived from this reusable SCSS plugin which I prepared for making forms:
+Derived from this reusable SCSS plugin which is prepared for making forms:
 ```
 atomic-design/src/assets/css/sass/addon/modules/simple-form/_simple-form.scss
 ```
