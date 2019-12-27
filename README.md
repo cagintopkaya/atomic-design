@@ -44,7 +44,7 @@ And how it's used in
 ```
 atomic-design/src/assets/css/sass/organisms/_article.scss:77
 ```
-Derived from this reusable SCSS plugin which is prepared for making forms:
+Deriving from this reusable SCSS plugin which is prepared for making forms:
 ```
 atomic-design/src/assets/css/sass/addon/modules/simple-form/_simple-form.scss
 ```
